@@ -18,7 +18,7 @@ nobase_include_HEADERS = src/libinly/CInly.h
 
 ############################################################
 
-INCLUDES = -I$(top_srcdir)/src/libinly/CInly.h
+INCLUDES = -I$(top_srcdir)/src/libinly/
 
 bin_PROGRAMS = inly_tool
 inly_tool_SOURCES = src/inly_tool/inly_tool.cpp
