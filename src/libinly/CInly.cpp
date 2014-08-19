@@ -9,7 +9,7 @@ CInly::~CInly()
 }
 
 bool
-CInly::CheckLicense(const std_string &r_strLicense)
+CInly::CheckLicenseString(const std_string &r_strLicense)
 {
 	return (false);
 }
