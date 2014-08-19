@@ -244,7 +244,11 @@ libinly_la_SOURCES = src/libinly/CInly.cpp
 libinly_la_CPPFLAGS = $(AM_CPPFLAGS) -Wall
 libinly_la_CXXFLAGS = $(AM_CFLAGS) #"pkg-config xxxx --cflags" 
 nobase_include_HEADERS = src/libinly/CInly.h
+
+############################################################
+INCLUDES = -I$(top_srcdir)/src/libinly/CInly.h
 inly_tool_SOURCES = src/inly_tool/inly_tool.cpp
+
 #inly_tool_LDFLAGS = 
 inly_tool_LDADD = $(top_builddir)/src/libinly/libinly.la
 all: inly_config.h
