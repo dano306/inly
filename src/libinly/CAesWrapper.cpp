@@ -8,7 +8,7 @@ const uint8_t CAesWrapper::sm_aesKey[CryptoPP::AES::DEFAULT_KEYLENGTH] = {
 };
 
 void
-CAesWrapper::encrypt(const uint8_t *pbinPlain, const uint32_t u32LenPlain, const uint8_t * & r_pbinCipher, uint32_t &r_u32LenCipher)
+CAesWrapper::encrypt(const uint8_t *pbinPlain, const size_t lenPlain, const uint8_t * & r_pbinCipher, size_t &r_lenCipher)
 {
 	CryptoPP::AESEncryption aesEncryptor;
 	
@@ -20,14 +20,14 @@ CAesWrapper::encrypt(const uint8_t *pbinPlain, const uint32_t u32LenPlain, const
 	r_pbinCipher = new uint8_t[200];
 	
 	const uint8_t	*pbinCur = pbinPlain;
-	const uint8_t	*pbinEnd = pbinPlain + u32LenPlain;
+	const uint8_t	*pbinEnd = pbinPlain + lenPlain;
 	while(pbinCur < pbinEnd){
-		uint32_t	u32LenLeft = pbinEnd - pbinCur;
-		if(u32LenLeft > CryptoPP::AES::BLOCKSIZE) {
-			u32LenLeft = CryptoPP::AES::BLOCKSIZE;
+		size_t	lenLeft = pbinEnd - pbinCur;
+		if(lenLeft > CryptoPP::AES::BLOCKSIZE) {
+			lenLeft = CryptoPP::AES::BLOCKSIZE;
 		}
 		memset(xorBlock, 0, CryptoPP::AES::BLOCKSIZE);
-		memcpy(inBlock, pbinCur, u32LenLeft);
+		memcpy(inBlock, pbinCur, lenLeft);
 		aesEncryptor.ProcessAndXorBlock( inBlock, xorBlock, outBlock);
 		memcpy((void *)r_pbinCipher, outBlock, CryptoPP::AES::BLOCKSIZE);
 		break;
@@ -35,7 +35,7 @@ CAesWrapper::encrypt(const uint8_t *pbinPlain, const uint32_t u32LenPlain, const
 }
 
 void
-CAesWrapper::decrypt(const uint8_t *pbinCipher, const uint32_t u32LenCipher, const uint8_t * & r_pbinPlain, uint32_t &r_u32LenPlain)
+CAesWrapper::decrypt(const uint8_t *pbinCipher, const size_t lenCipher, const uint8_t * & r_pbinPlain, size_t &r_lenPlain)
 {
 	
 }

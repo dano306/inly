@@ -10,10 +10,10 @@ class	CAesWrapper
 public:
 	
 	void
-	encrypt(const uint8_t *pbinPlain, const uint32_t u32LenPlain, const uint8_t * & r_pbinCipher, uint32_t &r_u32LenCipher);
+	encrypt(const uint8_t *pbinPlain, const size_t lenPlain, const uint8_t * & r_pbinCipher, size_t &r_lenCipher);
 	
 	void
-	decrypt(const uint8_t *pbinCipher, const uint32_t u32LenCipher, const uint8_t * & r_pbinPlain, uint32_t &r_u32LenPlain);
+	decrypt(const uint8_t *pbinCipher, const size_t lenCipher, const uint8_t * & r_pbinPlain, size_t &r_lenPlain);
 
 protected:
 	typedef	std::vector<uint8_t>	vec_bin_type;

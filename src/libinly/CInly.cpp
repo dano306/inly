@@ -1,4 +1,5 @@
-#include "CInly.h"
+#include <CInly.h>
+#include <CAesWrapper.h>
 
 CInly::CInly()
 {
@@ -23,6 +24,19 @@ CInly::GetHardwareString(void)
 		`cat /sys/class/net/eth0/address`|`cat /sys/class/net/eth1/address`|...|`cat /sys/class/net/ethN/address`
 	*/
 
-
+	return ("");
 }
 
+void
+CInly::test(const char *pPlain)
+{
+	const uint8_t	*pbinPlan = (const uint8_t *)pPlain;
+	size_t			lenPlan = strlen(pPlain);
+	
+	const uint8_t	*pbinCipher(NULL);
+	size_t			lenCipher((size_t)0);
+	
+	CAesWrapper		aes;
+	aes.encrypt(pbinPlan, lenPlan, pbinCipher, lenCipher);
+	
+}

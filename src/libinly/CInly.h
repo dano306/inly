@@ -47,6 +47,9 @@ public:
 	std_string
 	DumpHardwareDetail(const std_string &r_strLicense);
 
+	void
+	test(const char *pPlain);
+
 };//class CInly
 
 #endif	//__FILE_CINLY_H__

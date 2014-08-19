@@ -7,4 +7,5 @@ bin_PROGRAMS = inly_tool
 inly_tool_SOURCES = inly_tool.cpp
 
 #inly_tool_LDFLAGS = 
-inly_tool_LDADD = $(top_builddir)/src/libinly/.libs/libinly.a	#也可以写成libinly.so，但这种依赖于系统对so所在目录的配置
+
+inly_tool_LDADD = $(top_builddir)/src/libinly/.libs/libinly.a	#涔熷彲浠ュ啓鎴恖ibinly.so锛屼絾杩欑渚濊禆浜庣郴缁熷so鎵�鍦ㄧ洰褰曠殑閰嶇疆
