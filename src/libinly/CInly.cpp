@@ -7,7 +7,6 @@
 #define	printf__size_t(var)	printf("%s = %lu", #var, var)
 #define	printf__str(var)	printf("%s = %s", #var, (var).c_str())
 
-
 CInly::CInly()
 {
 }
@@ -37,12 +36,12 @@ CInly::GetHardwareString(void)
 void
 CInly::test(const char *pPlain)
 {
-
 	CAesWrapper		aes;
-	//std_string		strPlain = "h\0ello, dano306!";
+
 	std_string		strCipher;
 	std_string		strFinalPlain;
-	
+
+	//std_string		strPlain = "with cryptopp: hello, dano306!";	
 	const char *p = "h\0ello, dano306!hahahahahaha";
 	std_string strPlain(p, p + 24);
 	
@@ -51,17 +50,19 @@ CInly::test(const char *pPlain)
 	
 	printf__str(strPlain);
 	printf__size_t(strPlain.size());
+	printf__str(strCipher);
+	printf__size_t(strCipher.size());
 	printf__str(strFinalPlain);
 	printf__size_t(strFinalPlain.size());
 
 	fprintf(stdout, "strCipher's byte:\n");
-	for(size_t i = 0; i < 24; ++i){
+	for(size_t i = 0; i < strCipher.size(); ++i){
 		fprintf(stdout, "%02X ", (uint8_t)strCipher[i]);
 	}
 	fprintf(stdout, "\n");
 	
 	fprintf(stdout, "strFinalPlain's byte:\n");
-	for(size_t i = 0; i < 24; ++i){
+	for(size_t i = 0; i < strFinalPlain.size(); ++i){
 		fprintf(stdout, "%02X ", (uint8_t)strFinalPlain[i]);
 	}
 	fprintf(stdout, "\n");

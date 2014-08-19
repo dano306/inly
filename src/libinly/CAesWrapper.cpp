@@ -19,8 +19,6 @@ using CryptoPP::AES;
 //using CryptoPP::CBC_Mode;
 using CryptoPP::CTR_Mode;
 
-using namespace std;
-
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
@@ -42,7 +40,7 @@ const uint8_t CAesWrapper::sm_aesIv[CryptoPP::AES::BLOCKSIZE] = {
 void
 CAesWrapper::encrypt(const std::string &r_strPlain, std::string &r_strCipher)
 {
-	string cipher;
+	std::string strCipher;
 	
 	CTR_Mode< AES >::Encryption e;
 	e.SetKeyWithIV(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH, CAesWrapper::sm_aesIv);
@@ -50,20 +48,30 @@ CAesWrapper::encrypt(const std::string &r_strPlain, std::string &r_strCipher)
 	// The StreamTransformationFilter adds padding
 	//  as required. ECB and CBC Mode must be padded
 	//  to the block size of the cipher.
-	StringSource(r_strPlain, true,
+	StringSource(r_strPlain, true,				//不能在StreamTransformationFilter再套一层HexEncoder
 		new StreamTransformationFilter(e,
-			new StringSink(cipher)
+			new StringSink(strCipher)
 		) // StreamTransformationFilter
 	); // StringSource
 	
-	//r_strCipher = cipher;
-	r_strCipher.swap(cipher);
+	/*
+	//方案1：返回十六进制数值
+	r_strCipher.swap(strCipher);
+	*/
+	
+	/*
+	//方案2：返回十六进制数值的字符串表达；长度增加一倍，但是对于只能使用字符串的场合非常友好
+	//HexEncoder只能在这里使用，不能嵌在上文的StreamTransformationFilter的上层
+	*/	
+	StringSource (strCipher, strCipher.size(),  
+		new HexEncoder(new StringSink(r_strCipher))  
+	);
 }
 
 void
 CAesWrapper::decrypt(const std::string &r_strCipher, std::string &r_strPlain)
 {
-	string recovered;
+	std::string strRecovered;
 
 	CTR_Mode< AES >::Decryption d;
 	d.SetKeyWithIV(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH, CAesWrapper::sm_aesIv);
@@ -71,11 +79,12 @@ CAesWrapper::decrypt(const std::string &r_strCipher, std::string &r_strPlain)
 	// The StreamTransformationFilter removes
 	//  padding as required.
 	StringSource(r_strCipher, true,
-		new StreamTransformationFilter(d,
-			new StringSink(recovered)
-		) // StreamTransformationFilter
+		new HexDecoder(			//是否使用HexDecoder，需要与encrypt配套
+			new StreamTransformationFilter(d,
+				new StringSink(strRecovered)
+			) // StreamTransformationFilter
+		)// HexDecoder
 	); // StringSource
 
-	//r_strPlain = recovered;
-	r_strPlain.swap(recovered);
+	r_strPlain.swap(strRecovered);
 }
