@@ -3,7 +3,9 @@
 
 #include <stdio.h>
 #define	printf(format, args...)	printf("%s %s %d: " format "\n", __FILE__, __FUNCTION__, __LINE__, ##args)
-#define	printf_s(var)	printf("%s = %s", #var, var)
+#define	printf__s(var)	printf("%s = %s", #var, var)
+#define	printf__size_t(var)	printf("%s = %lu", #var, var)
+#define	printf__str(var)	printf("%s = %s", #var, (var).c_str())
 
 
 CInly::CInly()
@@ -35,29 +37,32 @@ CInly::GetHardwareString(void)
 void
 CInly::test(const char *pPlain)
 {
-	const uint8_t	*pbinPlan = (const uint8_t *)pPlain;
-	size_t			lenPlan = strlen(pPlain);
-	
-	const uint8_t	*pbinCipher(NULL);
-	size_t			lenCipher((size_t)0);
-	
+
 	CAesWrapper		aes;
-	aes.encrypt(pbinPlan, lenPlan, pbinCipher, lenCipher);
+	//std_string		strPlain = "h\0ello, dano306!";
+	std_string		strCipher;
+	std_string		strFinalPlain;
 	
-	printf_s(pPlain);
-	printf("%u", lenPlan);
-	printf("%u", lenCipher);
-
-	//////////
-	const uint8_t	*pbinFinalPlain(NULL);
-	size_t			lenFinalPlain((size_t)0);
+	const char *p = "h\0ello, dano306!hahahahahaha";
+	std_string strPlain(p, p + 24);
 	
-	aes.decrypt(pbinCipher, lenCipher, pbinFinalPlain, lenFinalPlain);
+	aes.encrypt(strPlain, strCipher);
+	aes.decrypt(strCipher, strFinalPlain);
+	
+	printf__str(strPlain);
+	printf__size_t(strPlain.size());
+	printf__str(strFinalPlain);
+	printf__size_t(strFinalPlain.size());
 
-	const char *pFinalPlain = (const char *)pbinFinalPlain;
-	printf_s(pFinalPlain);
-	printf("%u", lenFinalPlain);
-
-	delete [] pbinFinalPlain;
-	delete [] pbinCipher;
+	fprintf(stdout, "strCipher's byte:\n");
+	for(size_t i = 0; i < 24; ++i){
+		fprintf(stdout, "%02X ", (uint8_t)strCipher[i]);
+	}
+	fprintf(stdout, "\n");
+	
+	fprintf(stdout, "strFinalPlain's byte:\n");
+	for(size_t i = 0; i < 24; ++i){
+		fprintf(stdout, "%02X ", (uint8_t)strFinalPlain[i]);
+	}
+	fprintf(stdout, "\n");
 }

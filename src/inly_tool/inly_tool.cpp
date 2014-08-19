@@ -7,6 +7,6 @@ int main()
 	
 	Inly.test("dano306");
 	
-	std::cout << "hello world!" << std::endl;
+	std::cout << "hello world, dano306!" << std::endl;
 	return (0);
 }

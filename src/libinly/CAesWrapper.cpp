@@ -1,5 +1,30 @@
 #include <CAesWrapper.h>
 
+#include <cryptopp/cryptlib.h>
+using CryptoPP::Exception;
+
+#include <cryptopp/hex.h>
+using CryptoPP::HexEncoder;
+using CryptoPP::HexDecoder;
+
+#include <cryptopp/filters.h>
+using CryptoPP::StringSink;
+using CryptoPP::StringSource;
+using CryptoPP::StreamTransformationFilter;
+
+//#include <cryptopp/aes.h>	//宸茬粡鍦ㄥご鏂囦欢鍖呭惈
+using CryptoPP::AES;
+
+#include <cryptopp/ccm.h>
+//using CryptoPP::CBC_Mode;
+using CryptoPP::CTR_Mode;
+
+using namespace std;
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
 const uint8_t CAesWrapper::sm_aesKey[CryptoPP::AES::DEFAULT_KEYLENGTH] = {
 	0x00, 0x01, 0x02, 0x03,
 	0x10, 0x11, 0x12, 0x13,
@@ -7,52 +32,50 @@ const uint8_t CAesWrapper::sm_aesKey[CryptoPP::AES::DEFAULT_KEYLENGTH] = {
 	0x30, 0x31, 0x32, 0x33,
 };
 
+const uint8_t CAesWrapper::sm_aesIv[CryptoPP::AES::BLOCKSIZE] = {
+	0x40, 0x41, 0x42, 0x43,
+	0x50, 0x51, 0x52, 0x53,
+	0x60, 0x61, 0x62, 0x63,
+	0x70, 0x71, 0x72, 0x73,
+};
+
 void
-CAesWrapper::encrypt(const uint8_t *pbinPlain, const size_t lenPlain, const uint8_t * & r_pbinCipher, size_t &r_lenCipher)
+CAesWrapper::encrypt(const std::string &r_strPlain, std::string &r_strCipher)
 {
-	CryptoPP::AESEncryption aesEncryptor;
+	string cipher;
 	
-	uint8_t inBlock[CryptoPP::AES::BLOCKSIZE];				//加密前的密文块
-	uint8_t outBlock[CryptoPP::AES::BLOCKSIZE];				//加密后的密文块
-	uint8_t xorBlock[CryptoPP::AES::BLOCKSIZE];				//必须设定为全零
-    aesEncryptor.SetKey(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH);  //设定密钥
+	CTR_Mode< AES >::Encryption e;
+	e.SetKeyWithIV(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH, CAesWrapper::sm_aesIv);
 	
-	r_pbinCipher = new uint8_t[200];
+	// The StreamTransformationFilter adds padding
+	//  as required. ECB and CBC Mode must be padded
+	//  to the block size of the cipher.
+	StringSource(r_strPlain, true,
+		new StreamTransformationFilter(e,
+			new StringSink(cipher)
+		) // StreamTransformationFilter
+	); // StringSource
 	
-	const uint8_t	*pbinCur = pbinPlain;
-	const uint8_t	*pbinEnd = pbinPlain + lenPlain;
-	while(pbinCur < pbinEnd){
-		size_t	lenLeft = pbinEnd - pbinCur;
-		if(lenLeft > CryptoPP::AES::BLOCKSIZE) {
-			lenLeft = CryptoPP::AES::BLOCKSIZE;
-		}
-		memset(xorBlock, 0, CryptoPP::AES::BLOCKSIZE);
-		memcpy(inBlock, pbinCur, lenLeft);
-		aesEncryptor.ProcessAndXorBlock( inBlock, xorBlock, outBlock);
-		memcpy((void *)r_pbinCipher, outBlock, CryptoPP::AES::BLOCKSIZE);
-		break;
-	}
-	
-	r_lenCipher = CryptoPP::AES::BLOCKSIZE;
+	//r_strCipher = cipher;
+	r_strCipher.swap(cipher);
 }
 
 void
-CAesWrapper::decrypt(const uint8_t *pbinCipher, const size_t lenCipher, const uint8_t * & r_pbinPlain, size_t &r_lenPlain)
+CAesWrapper::decrypt(const std::string &r_strCipher, std::string &r_strPlain)
 {
-	CryptoPP::AESDecryption aesDecryptor;
-	
-	//unsigned char plainText[AES::BLOCKSIZE];
-	
-	uint8_t inBlock[CryptoPP::AES::BLOCKSIZE];				//解密前的密文块
-	uint8_t outBlock[CryptoPP::AES::BLOCKSIZE];				//解密后的密文块
-	uint8_t xorBlock[CryptoPP::AES::BLOCKSIZE];				//必须设定为全零
-	aesDecryptor.SetKey(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH);  //设定密钥
-		
-	r_pbinPlain = new uint8_t[200];
-	
-	memcpy(inBlock, pbinCipher, lenCipher);
-	memset(xorBlock, 0, CryptoPP::AES::BLOCKSIZE);
-	aesDecryptor.ProcessAndXorBlock(inBlock, xorBlock, outBlock);
-	
-	memcpy((void *)r_pbinPlain, outBlock, CryptoPP::AES::BLOCKSIZE);
+	string recovered;
+
+	CTR_Mode< AES >::Decryption d;
+	d.SetKeyWithIV(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH, CAesWrapper::sm_aesIv);
+
+	// The StreamTransformationFilter removes
+	//  padding as required.
+	StringSource(r_strCipher, true,
+		new StreamTransformationFilter(d,
+			new StringSink(recovered)
+		) // StreamTransformationFilter
+	); // StringSource
+
+	//r_strPlain = recovered;
+	r_strPlain.swap(recovered);
 }

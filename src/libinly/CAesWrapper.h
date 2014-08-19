@@ -3,25 +3,38 @@
 
 #include <cryptopp/aes.h>
 #include <inttypes.h>
-#include <vector>
+#include <string>
 
 class	CAesWrapper
 {
 public:
 	
+	/*
+		@r_strPlain
+			可以通过 string(const_iterator first, const_itertor last)
+			或者 assign(const_iterator first, const_itertor last)
+			的方式，承载包含\x00在内的字符
+			size()返回的长度，会包含\x00字符
+		
+		@r_strCipher
+			密文，可能包含不可见的字符
+	*/
 	void
-	encrypt(const uint8_t *pbinPlain, const size_t lenPlain, const uint8_t * & r_pbinCipher, size_t &r_lenCipher);
-	
+	encrypt(const std::string &r_strPlain, std::string &r_strCipher);
+
+	/*
+		@r_strCipher & @r_strPlain
+			对\x00的支持，与encrypt相同
+	*/
 	void
-	decrypt(const uint8_t *pbinCipher, const size_t lenCipher, const uint8_t * & r_pbinPlain, size_t &r_lenPlain);
+	decrypt(const std::string &r_strCipher, std::string &r_strPlain);
 
 protected:
-	typedef	std::vector<uint8_t>	vec_bin_type;
-	vec_bin_type					m_binPlain;
-	vec_bin_type					m_binCipher;
-	
+
 private:
 	const static uint8_t sm_aesKey[CryptoPP::AES::DEFAULT_KEYLENGTH];
+	const static uint8_t sm_aesIv[CryptoPP::AES::BLOCKSIZE];
+
 };//CAesWrapper
 
 #endif	//__FILE_CAESWRAPPER_H__
