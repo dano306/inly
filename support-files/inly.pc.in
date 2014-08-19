@@ -9,5 +9,5 @@ Version: 1.0
 
 Requires:
 Libs: -L${libdir} -linly
-Libs.private: -lm
+Libs.private: -lm -lcryptopp
 Cflags: -I${includedir}
