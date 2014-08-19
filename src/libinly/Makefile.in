@@ -70,7 +70,7 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libinly_la_LIBADD =
-am_libinly_la_OBJECTS = libinly_la-CInly.lo
+am_libinly_la_OBJECTS = libinly_la-CInly.lo libinly_la-CAesWrapper.lo
 libinly_la_OBJECTS = $(am_libinly_la_OBJECTS)
 libinly_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(libinly_la_CXXFLAGS) \
@@ -213,7 +213,7 @@ AUTOMAKE_OPTIONS = foreign
 
 # _LTLIBRARIES 是 Automake 支持 Libtool 的原语
 lib_LTLIBRARIES = libinly.la
-libinly_la_SOURCES = CInly.cpp
+libinly_la_SOURCES = CInly.cpp CAesWrapper.cpp
 libinly_la_CPPFLAGS = $(AM_CPPFLAGS) -Wall
 libinly_la_CXXFLAGS = $(AM_CFLAGS) `pkg-config cryptopp  --cflags`
 
@@ -225,7 +225,7 @@ libinly_la_CXXFLAGS = $(AM_CFLAGS) `pkg-config cryptopp  --cflags`
 
 # 不合适在这里指定，还是得由./configure时进行配置
 #includedir=${prefix}/include/inly/
-nobase_include_HEADERS = CInly.h
+nobase_include_HEADERS = CInly.h CAesWrapper.h
 all: all-am
 
 .SUFFIXES:
@@ -300,6 +300,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libinly_la-CAesWrapper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libinly_la-CInly.Plo@am__quote@
 
 .cpp.o:
@@ -329,6 +330,13 @@ libinly_la-CInly.lo: CInly.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='CInly.cpp' object='libinly_la-CInly.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libinly_la_CPPFLAGS) $(CPPFLAGS) $(libinly_la_CXXFLAGS) $(CXXFLAGS) -c -o libinly_la-CInly.lo `test -f 'CInly.cpp' || echo '$(srcdir)/'`CInly.cpp
+
+libinly_la-CAesWrapper.lo: CAesWrapper.cpp
+@am__fastdepCXX_TRUE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libinly_la_CPPFLAGS) $(CPPFLAGS) $(libinly_la_CXXFLAGS) $(CXXFLAGS) -MT libinly_la-CAesWrapper.lo -MD -MP -MF $(DEPDIR)/libinly_la-CAesWrapper.Tpo -c -o libinly_la-CAesWrapper.lo `test -f 'CAesWrapper.cpp' || echo '$(srcdir)/'`CAesWrapper.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/libinly_la-CAesWrapper.Tpo $(DEPDIR)/libinly_la-CAesWrapper.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='CAesWrapper.cpp' object='libinly_la-CAesWrapper.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libinly_la_CPPFLAGS) $(CPPFLAGS) $(libinly_la_CXXFLAGS) $(CXXFLAGS) -c -o libinly_la-CAesWrapper.lo `test -f 'CAesWrapper.cpp' || echo '$(srcdir)/'`CAesWrapper.cpp
 
 mostlyclean-libtool:
 	-rm -f *.lo
