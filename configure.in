@@ -10,6 +10,8 @@ AM_INIT_AUTOMAKE(inly, 1.0)
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+#动态链接库，如果是静态链接库，使用AC_PROC_RANLIB
+AC_PROG_LIBTOOL		# http://www.ibm.com/developerworks/cn/aix/library/1007_wuxh_libtool/
 
 # Checks for libraries.
 
