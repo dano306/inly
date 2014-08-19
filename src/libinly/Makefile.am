@@ -13,5 +13,6 @@ libinly_la_CXXFLAGS=$(AM_CFLAGS) #"pkg-config xxxx --cflags"
 # 通过 _LIBADD 可以指定库依赖关系
 #libinly_la_LIBADD  = -lm
 
-includedir=${prefix}/include/inly/
+# 不合适在这里指定，还是得由./configure时进行配置
+#includedir=${prefix}/include/inly/
 nobase_include_HEADERS = CInly.h

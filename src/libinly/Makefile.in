@@ -186,13 +186,7 @@ host_cpu = @host_cpu@
 host_os = @host_os@
 host_vendor = @host_vendor@
 htmldir = @htmldir@
-
-# 可以通过 _LDFLAGS 传递选项给 Libtool 
-#libinly_la_LDFLAGS = 
-
-# 通过 _LIBADD 可以指定库依赖关系
-#libinly_la_LIBADD  = -lm
-includedir = ${prefix}/include/inly/
+includedir = @includedir@
 infodir = @infodir@
 install_sh = @install_sh@
 libdir = @libdir@
@@ -222,6 +216,15 @@ lib_LTLIBRARIES = libinly.la
 libinly_la_SOURCES = CInly.cpp
 libinly_la_CPPFLAGS = $(AM_CPPFLAGS) -Wall
 libinly_la_CXXFLAGS = $(AM_CFLAGS) #"pkg-config xxxx --cflags" 
+
+# 可以通过 _LDFLAGS 传递选项给 Libtool 
+#libinly_la_LDFLAGS = 
+
+# 通过 _LIBADD 可以指定库依赖关系
+#libinly_la_LIBADD  = -lm
+
+# 不合适在这里指定，还是得由./configure时进行配置
+#includedir=${prefix}/include/inly/
 nobase_include_HEADERS = CInly.h
 all: all-am
 
