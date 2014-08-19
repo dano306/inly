@@ -1,6 +1,11 @@
 #include <CInly.h>
 #include <CAesWrapper.h>
 
+#include <stdio.h>
+#define	printf(format, args...)	printf("%s %s %d: " format "\n", __FILE__, __FUNCTION__, __LINE__, ##args)
+#define	printf_s(var)	printf("%s = %s", #var, var)
+
+
 CInly::CInly()
 {
 }
@@ -39,4 +44,20 @@ CInly::test(const char *pPlain)
 	CAesWrapper		aes;
 	aes.encrypt(pbinPlan, lenPlan, pbinCipher, lenCipher);
 	
+	printf_s(pPlain);
+	printf("%u", lenPlan);
+	printf("%u", lenCipher);
+
+	//////////
+	const uint8_t	*pbinFinalPlain(NULL);
+	size_t			lenFinalPlain((size_t)0);
+	
+	aes.decrypt(pbinCipher, lenCipher, pbinFinalPlain, lenFinalPlain);
+
+	const char *pFinalPlain = (const char *)pbinFinalPlain;
+	printf_s(pFinalPlain);
+	printf("%u", lenFinalPlain);
+
+	delete [] pbinFinalPlain;
+	delete [] pbinCipher;
 }

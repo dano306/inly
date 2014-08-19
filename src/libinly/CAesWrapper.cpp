@@ -12,10 +12,10 @@ CAesWrapper::encrypt(const uint8_t *pbinPlain, const size_t lenPlain, const uint
 {
 	CryptoPP::AESEncryption aesEncryptor;
 	
-	uint8_t inBlock[CryptoPP::AES::BLOCKSIZE];				//加密后的密文块
+	uint8_t inBlock[CryptoPP::AES::BLOCKSIZE];				//加密前的密文块
 	uint8_t outBlock[CryptoPP::AES::BLOCKSIZE];				//加密后的密文块
 	uint8_t xorBlock[CryptoPP::AES::BLOCKSIZE];				//必须设定为全零
-    aesEncryptor.SetKey(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH);  //设定加密密钥
+    aesEncryptor.SetKey(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH);  //设定密钥
 	
 	r_pbinCipher = new uint8_t[200];
 	
@@ -32,10 +32,27 @@ CAesWrapper::encrypt(const uint8_t *pbinPlain, const size_t lenPlain, const uint
 		memcpy((void *)r_pbinCipher, outBlock, CryptoPP::AES::BLOCKSIZE);
 		break;
 	}
+	
+	r_lenCipher = CryptoPP::AES::BLOCKSIZE;
 }
 
 void
 CAesWrapper::decrypt(const uint8_t *pbinCipher, const size_t lenCipher, const uint8_t * & r_pbinPlain, size_t &r_lenPlain)
 {
+	CryptoPP::AESDecryption aesDecryptor;
 	
+	//unsigned char plainText[AES::BLOCKSIZE];
+	
+	uint8_t inBlock[CryptoPP::AES::BLOCKSIZE];				//解密前的密文块
+	uint8_t outBlock[CryptoPP::AES::BLOCKSIZE];				//解密后的密文块
+	uint8_t xorBlock[CryptoPP::AES::BLOCKSIZE];				//必须设定为全零
+	aesDecryptor.SetKey(CAesWrapper::sm_aesKey, CryptoPP::AES::DEFAULT_KEYLENGTH);  //设定密钥
+		
+	r_pbinPlain = new uint8_t[200];
+	
+	memcpy(inBlock, pbinCipher, lenCipher);
+	memset(xorBlock, 0, CryptoPP::AES::BLOCKSIZE);
+	aesDecryptor.ProcessAndXorBlock(inBlock, xorBlock, outBlock);
+	
+	memcpy((void *)r_pbinPlain, outBlock, CryptoPP::AES::BLOCKSIZE);
 }
