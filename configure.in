@@ -29,7 +29,8 @@ AC_HEADER_STDBOOL
 
 # Checks for library functions.
 
-AC_OUTPUT([Makefile
+AC_OUTPUT([support-files/inly.pc
+Makefile
 src/libinly/Makefile
 src/inly_tool/Makefile
 ])

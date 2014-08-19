@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: inly
+Description: a license mechanism of each special machine
+Version: 1.0
+
+Requires:
+Libs: -L${libdir} -linly
+Libs.private: -lm
+Cflags: -I${includedir}

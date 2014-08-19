@@ -15489,7 +15489,7 @@ fi
 
 # Checks for library functions.
 
-ac_config_files="$ac_config_files Makefile src/libinly/Makefile src/inly_tool/Makefile"
+ac_config_files="$ac_config_files support-files/inly.pc Makefile src/libinly/Makefile src/inly_tool/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -16486,6 +16486,7 @@ do
     "inly_config.h") CONFIG_HEADERS="$CONFIG_HEADERS inly_config.h:inly_config.h.in" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
+    "support-files/inly.pc") CONFIG_FILES="$CONFIG_FILES support-files/inly.pc" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "src/libinly/Makefile") CONFIG_FILES="$CONFIG_FILES src/libinly/Makefile" ;;
     "src/inly_tool/Makefile") CONFIG_FILES="$CONFIG_FILES src/inly_tool/Makefile" ;;
