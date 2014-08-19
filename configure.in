@@ -1,0 +1,26 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ([2.63])
+AC_INIT([inly], [1.0], [dano306@qq.com])
+AC_CONFIG_SRCDIR([src/libinly/CInly.cpp])
+AM_CONFIG_HEADER([config.h])
+AM_INIT_AUTOMAKE(inly, 1.0)
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+
+# Checks for libraries.
+
+# Checks for header files.
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+
+# Checks for library functions.
+
+AC_OUTPUT([Makefile
+src/libinly/Makefile
+src/inly_tool/Makefile
+])
