@@ -4,7 +4,7 @@
 AC_PREREQ([2.63])
 AC_INIT([inly], [1.0], [dano306@qq.com])
 AC_CONFIG_SRCDIR([src/libinly/CInly.cpp])
-AM_CONFIG_HEADER([config.h])
+AM_CONFIG_HEADER([inly_config.h])
 AM_INIT_AUTOMAKE(inly, 1.0)
 
 # Checks for programs.
@@ -22,7 +22,4 @@ AC_HEADER_STDBOOL
 
 # Checks for library functions.
 
-AC_OUTPUT([Makefile
-src/libinly/Makefile
-src/inly_tool/Makefile
-])
+AC_OUTPUT([Makefile])
