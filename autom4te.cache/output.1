@@ -2032,7 +2032,13 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-ac_config_headers="$ac_config_headers inly_config.h"
+
+ac_config_headers="$ac_config_headers inly_config.h:inly_config.h.in"
+
+
+
+
+
 
 am__api_version='1.11'
 
@@ -16473,7 +16479,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
 for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
-    "inly_config.h") CONFIG_HEADERS="$CONFIG_HEADERS inly_config.h" ;;
+    "inly_config.h") CONFIG_HEADERS="$CONFIG_HEADERS inly_config.h:inly_config.h.in" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "libtool") CONFIG_COMMANDS="$CONFIG_COMMANDS libtool" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;

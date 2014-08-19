@@ -1,7 +1,8 @@
 /* inly_config.h.in.  Generated from configure.in by autoheader.  */
 
 #ifndef	__FILE_INLY_CONFIG_H__
-#define	__FILE_INLY_CONFIG_H__
+#define __FILE_INLY_CONFIG_H__
+
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
@@ -68,3 +69,4 @@
 #undef VERSION
 
 #endif	//__FILE_INLY_CONFIG_H__
+

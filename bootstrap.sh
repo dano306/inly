@@ -2,9 +2,9 @@
 
 #autoscan
 ##mv configure.ac configure.in
-#autoheader
 
 aclocal
+autoheader
 autoconf
 libtoolize --automake --copy --force #--debug
 automake --add-missing
