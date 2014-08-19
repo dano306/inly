@@ -185,7 +185,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = foreign
 INCLUDES = -I$(top_srcdir)/src/libinly/
-inly_tool_SOURCES = src/inly_tool/inly_tool.cpp
+inly_tool_SOURCES = inly_tool.cpp
 
 #inly_tool_LDFLAGS = 
 inly_tool_LDADD = $(top_builddir)/src/libinly/.libs/libinly.so
@@ -298,20 +298,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LTCXXCOMPILE) -c -o $@ $<
-
-inly_tool.o: src/inly_tool/inly_tool.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT inly_tool.o -MD -MP -MF $(DEPDIR)/inly_tool.Tpo -c -o inly_tool.o `test -f 'src/inly_tool/inly_tool.cpp' || echo '$(srcdir)/'`src/inly_tool/inly_tool.cpp
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/inly_tool.Tpo $(DEPDIR)/inly_tool.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/inly_tool/inly_tool.cpp' object='inly_tool.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o inly_tool.o `test -f 'src/inly_tool/inly_tool.cpp' || echo '$(srcdir)/'`src/inly_tool/inly_tool.cpp
-
-inly_tool.obj: src/inly_tool/inly_tool.cpp
-@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT inly_tool.obj -MD -MP -MF $(DEPDIR)/inly_tool.Tpo -c -o inly_tool.obj `if test -f 'src/inly_tool/inly_tool.cpp'; then $(CYGPATH_W) 'src/inly_tool/inly_tool.cpp'; else $(CYGPATH_W) '$(srcdir)/src/inly_tool/inly_tool.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/inly_tool.Tpo $(DEPDIR)/inly_tool.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='src/inly_tool/inly_tool.cpp' object='inly_tool.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o inly_tool.obj `if test -f 'src/inly_tool/inly_tool.cpp'; then $(CYGPATH_W) 'src/inly_tool/inly_tool.cpp'; else $(CYGPATH_W) '$(srcdir)/src/inly_tool/inly_tool.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
