@@ -1,17 +1,17 @@
 
 AUTOMAKE_OPTIONS = foreign
 
-# _LTLIBRARIES ÊÇ Automake Ö§³Ö Libtool µÄÔ­Óï
+# _LTLIBRARIES æ˜¯ Automake æ”¯æŒ Libtool çš„åŸè¯­
 lib_LTLIBRARIES = libinly.la
-libinly_la_SOURCES = src/libinly/CInly.cpp
+libinly_la_SOURCES = CInly.cpp
 libinly_la_CPPFLAGS = $(AM_CPPFLAGS) -Wall
 libinly_la_CXXFLAGS=$(AM_CFLAGS) #"pkg-config xxxx --cflags" 
 
-# ¿ÉÒÔÍ¨¹ı _LDFLAGS ´«µİÑ¡Ïî¸ø Libtool 
+# å¯ä»¥é€šè¿‡ _LDFLAGS ä¼ é€’é€‰é¡¹ç»™ Libtool 
 #libinly_la_LDFLAGS = 
 
-# Í¨¹ı _LIBADD ¿ÉÒÔÖ¸¶¨¿âÒÀÀµ¹ØÏµ
+# é€šè¿‡ _LIBADD å¯ä»¥æŒ‡å®šåº“ä¾èµ–å…³ç³»
 #libinly_la_LIBADD  = -lm
 
 includedir=${prefix}/include/inly/
-nobase_include_HEADERS = src/libinly/CInly.h
+nobase_include_HEADERS = CInly.h
