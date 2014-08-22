@@ -2,17 +2,21 @@
 #include <CAesWrapper.h>
 
 #include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 using namespace boost::filesystem;
 #include <vector>
 #include <set>
-#include <iostream>
-using namespace std;
 
+
+#include <iostream>
 #include <stdio.h>
 #define	printf(format, args...)	printf("%s %s %d: " format "\n", __FILE__, __FUNCTION__, __LINE__, ##args)
 #define	printf__s(var)	printf("%s = %s", #var, var)
 #define	printf__size_t(var)	printf("%s = %lu", #var, var)
 #define	printf__str(var)	printf("%s = %s", #var, (var).c_str())
+#define inly_cout(var)	std::cout << __FILE__ << " " << __FUNCTION__ << " " << __LINE__ << ": " << #var << " = " << (var) << std::endl
+
+
 
 CInly::CInly()
 {
@@ -46,47 +50,67 @@ CInly::GetHardwareString(void)
 	std_string		strHardware;
 	try
 	{
-		if (!exists(p))    // does p actually exist?
+		if (!exists(p))
 		{
 			return ("");
 		}
 		
-		if (!is_directory(p))      // is p a directory?
+		if (!is_directory(p))
 		{
 			return ("");
 		}
 		
+		//这个是将path，以/分隔，每次输出一个分量，目前暂时不需要这个功能
+		//for (path::iterator it(p.begin()), it_end(p.end()); it != it_end; ++it)
+    	//	std::cout << "  " << *it << '\n';
+	
+		//////////////////////////////
+	
 		//这里，p肯定是存在的目录
 		//开始遍历其下的文件
-		for (path::iterator it(p.begin()), it_end(p.end()); it != it_end; ++it)
-    		cout << "  " << *it << '\n';
+		typedef	std::set< std::string >		set_str;
+		set_str		setMac;
+		for (directory_iterator it = directory_iterator(p); it != directory_iterator(); ++it) {
+			inly_cout(*it);						//输出的是path的路径，可能带目录
+			inly_cout(it->filename());			//输出的是base
+			
+			std_string	strFileName = it->filename();
+			if (0 == strFileName.compare(0, 3, "eth") || 0 == strFileName.compare(0, 2, "em")) {
+				path	path_address = path(*it) / "address";
+				if (!exists(path_address))
+				{
+					//理论上不会进入这个分支
+					continue;
+				}
+				
+				std_string		strMac;
+				boost::filesystem::ifstream	if_mac(path_address);
+				getline(if_mac, strMac);
+				inly_cout(strMac);
+				setMac.insert(strMac);
+			} else {
+				//do nothing
+			}
+		}
 		
+		//setMac.insert("01:23:45:67:89:ab");	//仅仅用于测试分隔符
+		for(set_str::const_iterator it = setMac.begin(); it != setMac.end(); ++it){
+			if (!strHardware.empty()) {
+				//加入分隔线
+				strHardware += "|";
+			}
+			strHardware += *it;
+			inly_cout(*it);
+		}
+		inly_cout(strHardware);
 		
-		
-//		typedef vector<path> vec;             // store paths,
-//		vec v;                                // so we can sort them later
-//		
-//		copy(directory_iterator(p), directory_iterator(), back_inserter(v));
-//		
-//		sort(v.begin(), v.end());             // sort, since directory iteration
-//		  // is not ordered on some file systems
-//		for (vec::const_iterator it (v.begin()); it != v.end(); ++it)
-//		{
-//		cout << "   " << *it << '\n';
-//		}
-//		}
-//		
-//		else
-//		cout << p << " exists, but is neither a regular file nor a directory\n";
-
+		return (strHardware);
 	}
 	catch (const filesystem_error& ex)
 	{
-		cout << ex.what() << '\n';
+		//ex.what()
+		return ("");
 	}
-
-
-	return ("");
 }
 
 void
