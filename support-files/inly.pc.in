@@ -9,5 +9,5 @@ Version: 1.0
 
 Requires:
 Libs: -L${libdir} -linly
-Libs.private: -lm -lcryptopp
+Libs.private: -lm -lcryptopp -lboost_filesystem
 Cflags: -I${includedir}
