@@ -104,7 +104,19 @@ CInly::GetHardwareString(void)
 		}
 		inly_cout(strHardware);
 		
-		return (strHardware);
+		//加密
+		std_string		strCipher;
+		{
+			CAesWrapper		aes;
+			aes.encrypt(strHardware, strCipher);
+			
+			//仅测试
+			//strHardware.clear();
+			//aes.decrypt(strCipher, strHardware);
+			//return (strHardware);
+		}
+		
+		return (strCipher);
 	}
 	catch (const filesystem_error& ex)
 	{
