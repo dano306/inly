@@ -40,5 +40,11 @@ int main()
 		std::cout << "strHardwarePlain: " << strHardwarePlain << std::endl;
 	}
 
+	{
+		std::string	strHardware = "4007D2B98B95BD4AE2B444C64A57816EC2";
+		std::string	strHardwarePlain = Inly.DumpHardwareDetail(strHardware);
+		std::cout << "strHardwarePlain: " << strHardwarePlain << std::endl;
+	}
+
 	return (0);
 }

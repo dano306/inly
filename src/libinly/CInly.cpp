@@ -163,12 +163,20 @@ CInly::DumpLicenseDetail(const std_string &r_strLicense)
 {
 	CAesWrapper		aes;
 	std::string		strHardwareCipher;
-	std::string		strHardwarePlain;
-	
 	aes.decrypt(r_strLicense, strHardwareCipher);
-	aes.decrypt(strHardwareCipher, strHardwarePlain);
 	
+	std::string		strHardwarePlain = DumpHardwareDetail(strHardwareCipher);
 	return (strHardwarePlain);
+}
+
+const CInly::std_string
+CInly::DumpHardwareDetail(const std_string &r_strHardware)
+{
+	CAesWrapper		aes;
+	std::string		strHardwarePlain;	
+	aes.decrypt(r_strHardware, strHardwarePlain);
+	
+	return (strHardwarePlain);	
 }
 
 void
