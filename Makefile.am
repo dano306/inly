@@ -14,8 +14,10 @@ ldconfig_DATA = support-files/inly.conf
 
 ############################################################
 
+#这里要获取的是libdir的路径，而不是变量+路径，所以通过makefile来做，aucoconf做不了
 $(builddir)/support-files/inly.conf : $(srcdir)/support-files/inly.conf.in
-	sed -e 's|@libdir@|'"$(libdir)"'|g' $< > $@
+	sed -e 's|___libdir___|@libdir@|g' $< > $@
+
 
 #安装时的顺序install-exec > install-data
 #对应的hook也是这个调用顺序
