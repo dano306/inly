@@ -174,7 +174,7 @@ int main(int argc, char **argv)
 	po::options_description desc("inly_tool args description");
 	desc.add_options()
     	("help,h", "show this message and exit")
-    	("version,v", "show version and exit")
+    	("version,v", "show version and exit\n")
 
     	//字符串系列的选项开关
     	("m2raw", "input: none/null; output: raw machine string")
@@ -185,7 +185,7 @@ int main(int argc, char **argv)
     	("hw2lic", po::value< std::string >(), "input: hardware string; output: license string")
     	("hw2raw", po::value< std::string >(), "input: hardware string; output: raw machine string")
     	("lic2hw", po::value< std::string >(), "input: license string; output: raw hardware string")
-		("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
+		("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string\n")
 
 		//检验系列的选项开关
 		//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
