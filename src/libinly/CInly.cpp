@@ -141,6 +141,16 @@ CInly::GetHardwareString(void)
 }
 
 const std_string
+CInly::D_GetHardwareString(const std_string &r_strLicense)
+{
+	std_string		strHardware;
+	
+	CAesWrapper		aes;
+	aes.decrypt(r_strLicense, strHardware);
+	return (strHardware);
+}
+
+const std_string
 CInly::GetLicenseString(void)
 {
 	/*

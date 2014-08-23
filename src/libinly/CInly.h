@@ -35,6 +35,12 @@ public:
 	GetHardwareString(void);
 
 	/*
+		从许可字符串获取硬件字符串
+	*/
+	const std_string
+	D_GetHardwareString(const std_string &r_strLicense);
+
+	/*
 		根据当前的硬件信息输出许可字符串
 	*/
 	const std_string

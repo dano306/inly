@@ -102,6 +102,19 @@ int hw2raw(const std_string &r_strHardware)
 	return (EXIT_SUCCESS);
 }
 
+int lic2hw(const std_string &r_strLicense)
+{
+	CInly	Inly;
+
+	std::string	strHardware = Inly.D_GetHardwareString(r_strLicense);
+	if (strHardware.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strHardware << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
+
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
@@ -119,8 +132,8 @@ int main(int argc, char **argv)
     	("raw2lic", po::value< std::string >(), "input: raw machine string; output: license string")
     	("hw2lic", po::value< std::string >(), "input: hardware string; output: license string")
     	("hw2raw", po::value< std::string >(), "input: hardware string; output: raw machine string")
-    	("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
     	("lic2hw", po::value< std::string >(), "input: license string; output: raw hardware string")
+		("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
 
 		//检验系列的选项开关
 		//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
@@ -159,15 +172,18 @@ int main(int argc, char **argv)
 	} else if (vm.count("hw2raw")) {
 		int iRet = hw2raw(vm["hw2raw"].as< std::string >());
 		std::exit(iRet);
+	} else if (vm.count("lic2hw")) {
+		int iRet = lic2hw(vm["lic2hw"].as< std::string >());
+		std::exit(iRet);
+//	} else if (vm.count("lic2raw")) {
+//		int iRet = lic2raw(vm["lic2raw"].as< std::string >());
+//		std::exit(iRet);
 	} 
 	
 	
 
 	/*	
-    ("", po::value< std::string >(), "input: hardware string; output: license string")
-	("", po::value< std::string >(), "input: hardware string; output: raw machine string")
-	("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
-	("lic2hw", po::value< std::string >(), "input: license string; output: raw hardware string")
+
 
 	//检验系列的选项开关
 	//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
