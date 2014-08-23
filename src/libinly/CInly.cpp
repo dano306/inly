@@ -185,12 +185,12 @@ CInly::test(const char *pPlain)
 	aes.encrypt(strPlain, strCipher);
 	aes.decrypt(strCipher, strFinalPlain);
 	
-	printf__str(strPlain);
-	printf__size_t(strPlain.size());
-	printf__str(strCipher);
-	printf__size_t(strCipher.size());
-	printf__str(strFinalPlain);
-	printf__size_t(strFinalPlain.size());
+	inly_printf__str(strPlain);
+	inly_printf__size_t(strPlain.size());
+	inly_printf__str(strCipher);
+	inly_printf__size_t(strCipher.size());
+	inly_printf__str(strFinalPlain);
+	inly_printf__size_t(strFinalPlain.size());
 
 	fprintf(stdout, "strCipher's byte:\n");
 	for(size_t i = 0; i < strCipher.size(); ++i){

@@ -1,7 +1,7 @@
 #ifndef	__FILE_INLY_H__
 #define	__FILE_INLY_H__
 
-//此文件决定libinly将导出多少信息给外部使用
+//姝ゆ枃浠跺喅瀹歭ibinly灏嗗鍑哄灏戜俊鎭粰澶栭儴浣跨敤
 
 #include <inly_core.h>
 #include <CInly.h>

@@ -48,6 +48,10 @@ public:
 	const std_string
 	DumpHardwareDetail(const std_string &r_strHardware);
 
+private:
+	/*
+		仅调试时使用，发布时作为私有函数
+	*/
 	void
 	test(const char *pPlain);
 

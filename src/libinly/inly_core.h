@@ -1,29 +1,33 @@
 #ifndef	__FILE_INLY_CORE_H__
 #define	__FILE_INLY_CORE_H__
 
-//´ËÎÄ¼şÊÇlibinlyÄÚ²¿ËùÓĞÀà¹²ÓÃµÄ¡°´ó¶øÍ¬¡±µÄĞÅÏ¢£¬Ò»°ãÒ²ĞèÒªÒı³ö¸ølibinlyµÄÍâ²¿Ê¹ÓÃÕß
+//æ­¤æ–‡ä»¶æ˜¯libinlyå†…éƒ¨æ‰€æœ‰ç±»å…±ç”¨çš„â€œå¤§è€ŒåŒâ€çš„ä¿¡æ¯ï¼Œä¸€èˆ¬ä¹Ÿéœ€è¦å¼•å‡ºç»™libinlyçš„å¤–éƒ¨ä½¿ç”¨è€…
+//INLY_DEBUGå®çš„å¼•å…¥ï¼Œå¯é€šè¿‡å‘½ä»¤: make CPPFLAGS=-DINLY_DEBUG
+
+#warning	"å½“å‰æ­£å¤„äºè°ƒè¯•çš„çŠ¶æ€ï¼Œè‡ªåŠ¨å®šä¹‰å®INLY_DEBUG"
+#define	INLY_DEBUG
 
 #include <iostream>
 #include <stdio.h>
 #include <string>
 
-#ifdef	INLY_DEBUG		//Í¨¹ıÌõ¼ş±àÒë£¬¿ìËÙÈ¥µô´òÓ¡µ÷ÊÔÏà¹ØµÄºê
+#ifdef	INLY_DEBUG		//é€šè¿‡æ¡ä»¶ç¼–è¯‘ï¼Œå¿«é€Ÿå»æ‰æ‰“å°è°ƒè¯•ç›¸å…³çš„å®
 
-	#define	printf(format, args...)	printf("%s %s %d: " format "\n", __FILE__, __FUNCTION__, __LINE__, ##args)
-	#define	printf__s(var)	printf("%s = %s", #var, var)
-	#define	printf__size_t(var)	printf("%s = %lu", #var, var)
-	#define	printf__str(var)	printf("%s = %s", #var, (var).c_str())
+	#define	inly_printf(format, args...)	printf("%s %s %d: " format "\n", __FILE__, __FUNCTION__, __LINE__, ##args)
+	#define	inly_printf__s(var)				inly_printf("%s = %s", #var, var)
+	#define	inly_printf__size_t(var)		inly_printf("%s = %lu", #var, var)
+	#define	inly_printf__str(var)			inly_printf("%s = %s", #var, (var).c_str())
 	#define inly_cout(var)	std::cout << __FILE__ << " " << __FUNCTION__ << " " << __LINE__ << ": " << #var << " = " << (var) << std::endl
 
 #else
 
-	#define	printf(format, args...)
-	#define	printf__s(var)
-	#define	printf__size_t(var)
-	#define	printf__str(var)
+	#define	inly_printf(format, args...)
+	#define	inly_printf__s(var)
+	#define	inly_printf__size_t(var)
+	#define	inly_printf__str(var)
 	#define inly_cout(var)
 
-#endif	
+#endif
 
 #define	NS_INLY		inly
 #define	NAMESPACE_BEGIN__INLY	namespace NS_INLY {
@@ -31,7 +35,7 @@
 #define	NAMESPACE_USING__INLY	using namespace NS_INLY;
 
 NAMESPACE_BEGIN__INLY
-typedef	std::string		std_string;
+typedef	std::string		std_string;		//é™å®šåœ¨åå­—ç©ºé—´é‡Œï¼Œæ‰€ä»¥ä¸æ‹…å¿ƒæ±¡æŸ“ä½¿ç”¨è€…çš„åå­—ç©ºé—´
 
 NAMESPACE_END__INLY
 
