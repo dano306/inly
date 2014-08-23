@@ -23,11 +23,11 @@ int m2hw()
 {
 	CInly	Inly;
 
-	std::string	stHardware = Inly.GetHardwareString();
-	if (stHardware.empty()) {
+	std::string	strHardware = Inly.GetHardwareString();
+	if (strHardware.empty()) {
 		return (EXIT_FAILURE);
 	}
-	std::cout << stHardware << std::endl;
+	std::cout << strHardware << std::endl;
 	
 	return (EXIT_SUCCESS);
 }
@@ -36,13 +36,26 @@ int m2lic()
 {
 	CInly	Inly;
 
-	std::string	stLicense = Inly.GetLicenseString();
-	if (stLicense.empty()) {
+	std::string	strLicense = Inly.GetLicenseString();
+	if (strLicense.empty()) {
 		return (EXIT_FAILURE);
 	}
-	std::cout << stLicense << std::endl;
+	std::cout << strLicense << std::endl;
 	
 	return (EXIT_SUCCESS);
+}
+
+int raw2hw(const std_string &r_strRaw)
+{
+	CInly	Inly;
+
+	std::string	strHardware = Inly.GetHardwareString(r_strRaw);
+	if (strHardware.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strHardware << std::endl;
+	
+	return (EXIT_SUCCESS);	
 }
 
 int main(int argc, char **argv)
@@ -89,6 +102,9 @@ int main(int argc, char **argv)
 		std::exit(iRet);
 	} else if (vm.count("m2lic")) {
 		int iRet = m2lic();
+		std::exit(iRet);
+	} else if (vm.count("raw2hw")) {
+		int iRet = raw2hw(vm["raw2hw"].as< std::string >());
 		std::exit(iRet);
 	} 
 	

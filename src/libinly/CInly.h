@@ -17,7 +17,13 @@ public:
 	GetRawString(void);
 
 	/*
-		由硬件编码生成的硬件字符串
+		由硬件编码[从参数获取]生成的硬件字符串
+	*/
+	const std_string
+	GetHardwareString(const std_string &r_strRaw);
+
+	/*
+		由硬件编码[从当前机器获取]生成的硬件字符串
 	*/
 	const std_string
 	GetHardwareString(void);

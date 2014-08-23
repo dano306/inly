@@ -23,6 +23,13 @@ const std_string
 CInly::GetRawString(void)
 {
 	/*
+		当前版本：仅关联所有网卡mac地址
+		明文: 枚举/sys/class/net/目录，除lo之外，eth'X'/em'X'目录下的address文件内容，然后以'|'分隔，各mac地址按从小到大排序
+		`cat /sys/class/net/eth0/address`|`cat /sys/class/net/eth1/address`|...|`cat /sys/class/net/ethN/address`
+	*/
+	
+	
+	/*
 		@return
 			失败返回""，否则返回硬件字符串[当前的设计下，不可能是""]
 	*/
@@ -95,25 +102,31 @@ CInly::GetRawString(void)
 }
 
 const std_string
-CInly::GetHardwareString(void)
+CInly::GetHardwareString(const std_string &r_strRaw)
 {
 	/*
-		当前版本：仅关联所有网卡mac地址
-		明文: 枚举/sys/class/net/目录，除lo之外，eth'X'/em'X'目录下的address文件内容，然后以'|'分隔，各mac地址按从小到大排序
-		`cat /sys/class/net/eth0/address`|`cat /sys/class/net/eth1/address`|...|`cat /sys/class/net/ethN/address`
+		@return
+			失败返回""，否则返回硬件字符串[当前的设计下，不可能是""]
 	*/
 
+	std_string		strHardware;
+	
+	CAesWrapper		aes;
+	aes.encrypt(r_strRaw, strHardware);
+
+	return (strHardware);
+}
+
+const std_string
+CInly::GetHardwareString(void)
+{
 	/*
 		@return
 			失败返回""，否则返回硬件字符串[当前的设计下，不可能是""]
 	*/
 
 	std_string		strRaw = GetRawString();
-	std_string		strHardware;
-	
-	CAesWrapper		aes;
-	aes.encrypt(strRaw, strHardware);
-
+	std_string		strHardware = GetHardwareString(strRaw);
 	return (strHardware);
 }
 
