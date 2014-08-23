@@ -19,6 +19,32 @@ int m2raw()
 	return (EXIT_SUCCESS);
 }
 
+int m2hw()
+{
+	CInly	Inly;
+
+	std::string	stHardware = Inly.GetHardwareString();
+	if (stHardware.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << stHardware << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
+
+int m2lic()
+{
+	CInly	Inly;
+
+	std::string	stLicense = Inly.GetLicenseString();
+	if (stLicense.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << stLicense << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
+
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
@@ -57,6 +83,12 @@ int main(int argc, char **argv)
 		std::exit(EXIT_SUCCESS);
 	} else if (vm.count("m2raw")) {
 		int iRet = m2raw();
+		std::exit(iRet);
+	} else if (vm.count("m2hw")) {
+		int iRet = m2hw();
+		std::exit(iRet);
+	} else if (vm.count("m2lic")) {
+		int iRet = m2lic();
 		std::exit(iRet);
 	} 
 	
