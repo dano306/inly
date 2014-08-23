@@ -21,5 +21,12 @@ int main()
 		std::cout << "strLicense: " << strLicense << std::endl;		
 	}
 
+	{
+		std::string	strHardware = "4007D2B98B95BD4AE2B444C64A57816EC2";
+		std::string	strLicense;
+		strLicense = Inly.GetLicenseString(strHardware);
+		std::cout << "strLicense: " << strLicense << std::endl;		
+	}
+
 	return (0);
 }

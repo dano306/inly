@@ -128,15 +128,29 @@ CInly::GetHardwareString(void)
 const CInly::std_string
 CInly::GetLicenseString(void)
 {
+	/*
+		@return
+			失败返回""，否则返回硬件字符串[当前的设计下，不可能是""]
+	*/
+	
 	std::string	strHardware;
 	strHardware = GetHardwareString();
+	if (strHardware.empty()) {
+		return ("");
+	}
 	
 	//硬件字符串再一次加密，即得到许可字符串
+	std::string	strLicense = GetLicenseString(strHardware);
+	return (strLicense);
+}
+
+const CInly::std_string
+CInly::GetLicenseString(const std_string &r_strHardware)
+{
+	//硬件字符串再一次加密，即得到许可字符串
 	std::string	strLicense;
-	{
-		CAesWrapper		aes;
-		aes.encrypt(strHardware, strLicense);
-	}
+	CAesWrapper		aes;
+	aes.encrypt(r_strHardware, strLicense);
 
 	return (strLicense);
 }
