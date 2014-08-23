@@ -1,4 +1,6 @@
+#include <inly_core.h>
 #include <CInly.h>
+
 #include <CAesWrapper.h>
 
 #include <boost/filesystem.hpp>

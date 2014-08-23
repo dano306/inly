@@ -1,8 +1,6 @@
 #ifndef	__FILE_CINLY_H__
 #define	__FILE_CINLY_H__
 
-#include <inly_core.h>
-
 NAMESPACE_BEGIN__INLY
 
 class	CInly
