@@ -15,7 +15,7 @@ int m2raw()
 		return (EXIT_FAILURE);
 	}
 	std::cout << strRaw << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -28,7 +28,7 @@ int m2hw()
 		return (EXIT_FAILURE);
 	}
 	std::cout << strHardware << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -41,7 +41,7 @@ int m2lic()
 		return (EXIT_FAILURE);
 	}
 	std::cout << strLicense << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -54,8 +54,8 @@ int raw2hw(const std_string &r_strRaw)
 		return (EXIT_FAILURE);
 	}
 	std::cout << strHardware << std::endl;
-	
-	return (EXIT_SUCCESS);	
+
+	return (EXIT_SUCCESS);
 }
 
 int raw2lic(const std_string &r_strRaw)
@@ -72,7 +72,7 @@ int raw2lic(const std_string &r_strRaw)
 		return (EXIT_FAILURE);
 	}
 	std::cout << strLicense << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -85,7 +85,7 @@ int hw2lic(const std_string &r_strHardware)
 		return (EXIT_FAILURE);
 	}
 	std::cout << strLicense << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -98,7 +98,7 @@ int hw2raw(const std_string &r_strHardware)
 		return (EXIT_FAILURE);
 	}
 	std::cout << strRaw << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -111,7 +111,7 @@ int lic2hw(const std_string &r_strLicense)
 		return (EXIT_FAILURE);
 	}
 	std::cout << strHardware << std::endl;
-	
+
 	return (EXIT_SUCCESS);
 }
 
@@ -123,7 +123,7 @@ int lic2raw(const std_string &r_strLicense)
 	if (strHardware.empty()) {
 		return (EXIT_FAILURE);
 	}
-	
+
 	std::string	strRaw = Inly.D_GetRawString(strHardware);
 	if (strRaw.empty()) {
 		return (EXIT_FAILURE);
@@ -170,12 +170,12 @@ int m7lic(const std_string &r_strLicense)
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
-		
+
 	po::options_description desc("inly_tool args description");
 	desc.add_options()
     	("help,h", "show this message and exit")
     	("version,v", "show version and exit")
-    	
+
     	//字符串系列的选项开关
     	("m2raw", "input: none/null; output: raw machine string")
     	("m2hw", "input: none/null; output: hardware string")
@@ -192,10 +192,15 @@ int main(int argc, char **argv)
     	("m7hw", po::value< std::string >(), "input: hardware string; check: hardware string with current machine")
     	("m7lic", po::value< std::string >(), "input: license string; check: license string with current machine")
 	;
-	
+
 	po::variables_map vm;
-	po::store(po::parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
+	try {
+		po::store(po::parse_command_line(argc, argv, desc), vm);
+		po::notify(vm);
+	} catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
 
 	if (vm.count("help")) {
 		desc.print(std::cout);
@@ -240,18 +245,18 @@ int main(int argc, char **argv)
 		desc.print(std::cout);
 	    std::exit(EXIT_SUCCESS);
 	}
-	
-	return (0);
+
+	std::exit(EXIT_SUCCESS);
 }
 
 /*
 在main函数还未增加选项开关之前的相关测试代码片断
 
 	CInly	Inly;
-	
+
 	//Inly.test("dano306");
 	//std::cout << "hello world, dano306!" << std::endl;
-	
+
 	{
 		std::string	strHardware;
 		strHardware = Inly.GetHardwareString();
