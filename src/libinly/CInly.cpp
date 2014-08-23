@@ -149,7 +149,7 @@ CInly::CheckLicenseString(const std_string &r_strLicense)
 	return (strLicense == r_strLicense);
 }
 
-const CInly::std_string
+const std_string
 CInly::DumpLicenseDetail(const std_string &r_strLicense)
 {
 	CAesWrapper		aes;
