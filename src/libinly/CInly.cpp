@@ -181,33 +181,21 @@ CInly::GetLicenseString(const std_string &r_strHardware)
 }
 
 bool
+CInly::CheckHardwareString(const std_string &r_strHardware)
+{
+	std::string	strHardware;
+	strHardware = GetHardwareString();
+	
+	return (strHardware == r_strHardware);	
+}
+
+bool
 CInly::CheckLicenseString(const std_string &r_strLicense)
 {
 	std::string	strLicense;
 	strLicense = GetLicenseString();
 	
 	return (strLicense == r_strLicense);
-}
-
-const std_string
-CInly::DumpLicenseDetail(const std_string &r_strLicense)
-{
-	CAesWrapper		aes;
-	std::string		strHardwareCipher;
-	aes.decrypt(r_strLicense, strHardwareCipher);
-	
-	std::string		strHardwarePlain = DumpHardwareDetail(strHardwareCipher);
-	return (strHardwarePlain);
-}
-
-const std_string
-CInly::DumpHardwareDetail(const std_string &r_strHardware)
-{
-	CAesWrapper		aes;
-	std::string		strHardwarePlain;	
-	aes.decrypt(r_strHardware, strHardwarePlain);
-	
-	return (strHardwarePlain);	
 }
 
 void

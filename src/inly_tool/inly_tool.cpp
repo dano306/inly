@@ -136,16 +136,14 @@ int m7hw(const std_string &r_strHardware)
 {
 	CInly	Inly;
 
-	std::string	strHardware = Inly.GetHardwareString();
-	if (strHardware.empty()) {
-		return (EXIT_FAILURE);
-	}
-	
-	if(strHardware == r_strHardware) {
-		std::cout << "the hardware string is correct" << std::endl;
+	bool	bRet = Inly.CheckHardwareString(r_strHardware);
+
+	if(bRet) {
+		std::cout << "the hareware string is correct" << std::endl;
 		return (EXIT_SUCCESS);
 	} else {
-		return (EXIT_SUCCESS);
+		std::cout << "the hareware string is incorrect" << std::endl;
+		return (EXIT_FAILURE);
 	}
 
 }
@@ -154,16 +152,14 @@ int m7lic(const std_string &r_strLicense)
 {
 	CInly	Inly;
 
-	std::string	strLicense = Inly.GetLicenseString();
-	if (strLicense.empty()) {
-		return (EXIT_FAILURE);
-	}
-	
-	if(strLicense == r_strLicense) {
+	bool	bRet = Inly.CheckLicenseString(r_strLicense);
+
+	if(bRet) {
 		std::cout << "the license string is correct" << std::endl;
 		return (EXIT_SUCCESS);
 	} else {
-		return (EXIT_SUCCESS);
+		std::cout << "the license string is incorrect" << std::endl;
+		return (EXIT_FAILURE);
 	}
 }
 

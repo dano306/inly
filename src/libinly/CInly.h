@@ -11,6 +11,14 @@ public:
 	virtual ~CInly();
 
 	/*
+		machine --(read plain info)--> raw string --(aes encrypt)--> hardware string --(aes encrypt)--> license string
+		Getxxx函数，沿着aes encrypt的方向，但不跨级，比如，不能从raw string直接到license string
+		D_Getxxx函数，沿着aes decrypt的方向，但不跨级
+	*/
+
+	////////////////////////////////////////////////////////
+
+	/*
 		返回表示硬件编码的原始字符串
 	*/
 	const std_string
@@ -53,22 +61,16 @@ public:
 	GetLicenseString(const std_string &r_strHardware);
 
 	/*
+		检验硬件字符串
+	*/
+	bool
+	CheckHardwareString(const std_string &r_strHardware);
+
+	/*
 		检验许可字符串
 	*/
 	bool
 	CheckLicenseString(const std_string &r_strLicense);
-
-	/*
-		显示许可字符串明文
-	*/
-	const std_string
-	DumpLicenseDetail(const std_string &r_strLicense);
-
-	/*
-		显示硬件字符串明文
-	*/
-	const std_string
-	DumpHardwareDetail(const std_string &r_strHardware);
 
 private:
 	/*
