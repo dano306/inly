@@ -115,6 +115,23 @@ int lic2hw(const std_string &r_strLicense)
 	return (EXIT_SUCCESS);
 }
 
+int lic2raw(const std_string &r_strLicense)
+{
+	CInly	Inly;
+
+	std::string	strHardware = Inly.D_GetHardwareString(r_strLicense);
+	if (strHardware.empty()) {
+		return (EXIT_FAILURE);
+	}
+	
+	std::string	strRaw = Inly.D_GetRawString(strHardware);
+	if (strRaw.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strRaw << std::endl;
+	return (EXIT_SUCCESS);
+}
+
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
@@ -175,9 +192,9 @@ int main(int argc, char **argv)
 	} else if (vm.count("lic2hw")) {
 		int iRet = lic2hw(vm["lic2hw"].as< std::string >());
 		std::exit(iRet);
-//	} else if (vm.count("lic2raw")) {
-//		int iRet = lic2raw(vm["lic2raw"].as< std::string >());
-//		std::exit(iRet);
+	} else if (vm.count("lic2raw")) {
+		int iRet = lic2raw(vm["lic2raw"].as< std::string >());
+		std::exit(iRet);
 	} 
 	
 	
