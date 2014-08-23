@@ -26,12 +26,6 @@ CInly::~CInly()
 {
 }
 
-bool
-CInly::CheckLicenseString(const std_string &r_strLicense)
-{
-	return (false);
-}
-
 const CInly::std_string
 CInly::GetHardwareString(void)
 {
@@ -153,6 +147,15 @@ CInly::GetLicenseString(const std_string &r_strHardware)
 	aes.encrypt(r_strHardware, strLicense);
 
 	return (strLicense);
+}
+
+bool
+CInly::CheckLicenseString(const std_string &r_strLicense)
+{
+	std::string	strLicense;
+	strLicense = GetLicenseString();
+	
+	return (strLicense == r_strLicense);
 }
 
 void
