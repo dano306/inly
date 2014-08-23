@@ -1,6 +1,6 @@
-#include "inly.h"
-#include <iostream>
-#include <string>
+#include <inly.h>
+
+NAMESPACE_USING__INLY
 
 int main()
 {
@@ -12,38 +12,38 @@ int main()
 	{
 		std::string	strHardware;
 		strHardware = Inly.GetHardwareString();
-		std::cout << "strHardware: " << strHardware << std::endl;
+		inly_cout(strHardware);
 	}
 
 	{
 		std::string	strLicense;
 		strLicense = Inly.GetLicenseString();
-		std::cout << "strLicense: " << strLicense << std::endl;
+		inly_cout(strLicense);
 	}
 
 	{
 		std::string	strHardware = "4007D2B98B95BD4AE2B444C64A57816EC2";
 		std::string	strLicense;
 		strLicense = Inly.GetLicenseString(strHardware);
-		std::cout << "strLicense: " << strLicense << std::endl;	
+		inly_cout(strLicense);
 	}
 
 	{
 		std::string	strLicense = "4407D8BEAC9DCD4AE0954AC93E258F4CE198263A0F5666093B6BB5A52199157D327E";
-		bool	bRet = Inly.CheckLicenseString(strLicense);
-		std::cout << "CheckLicenseString: " << bRet << std::endl;
+		bool	bRet_CheckLicenseString = Inly.CheckLicenseString(strLicense);
+		inly_cout(bRet_CheckLicenseString);
 	}
 
 	{
 		std::string	strLicense = "4407D8BEAC9DCD4AE0954AC93E258F4CE198263A0F5666093B6BB5A52199157D327E";
 		std::string	strHardwarePlain = Inly.DumpLicenseDetail(strLicense);
-		std::cout << "strHardwarePlain: " << strHardwarePlain << std::endl;
+		inly_cout(strHardwarePlain);
 	}
 
 	{
 		std::string	strHardware = "4007D2B98B95BD4AE2B444C64A57816EC2";
 		std::string	strHardwarePlain = Inly.DumpHardwareDetail(strHardware);
-		std::cout << "strHardwarePlain: " << strHardwarePlain << std::endl;
+		inly_cout(strHardwarePlain);
 	}
 
 	return (0);

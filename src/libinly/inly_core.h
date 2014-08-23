@@ -1,6 +1,8 @@
 #ifndef	__FILE_INLY_CORE_H__
 #define	__FILE_INLY_CORE_H__
 
+//此文件是libinly内部所有类共用的“大而同”的信息，一般也需要引出给libinly的外部使用者
+
 #include <iostream>
 #include <stdio.h>
 #include <string>
