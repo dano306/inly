@@ -76,6 +76,20 @@ int raw2lic(const std_string &r_strRaw)
 	return (EXIT_SUCCESS);
 }
 
+int hw2lic(const std_string &r_strHardware)
+{
+	CInly	Inly;
+
+	std::string	strLicense = Inly.GetLicenseString(r_strHardware);
+	if (strLicense.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strLicense << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
+
+
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
@@ -127,7 +141,24 @@ int main(int argc, char **argv)
 	} else if (vm.count("raw2lic")) {
 		int iRet = raw2lic(vm["raw2lic"].as< std::string >());
 		std::exit(iRet);
+	} else if (vm.count("hw2lic")) {
+		int iRet = hw2lic(vm["hw2lic"].as< std::string >());
+		std::exit(iRet);
 	} 
+	
+	
+
+	/*	
+    ("", po::value< std::string >(), "input: hardware string; output: license string")
+	("hw2raw", po::value< std::string >(), "input: hardware string; output: raw machine string")
+	("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
+	("lic2hw", po::value< std::string >(), "input: license string; output: raw hardware string")
+
+	//检验系列的选项开关
+	//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
+	("m7hw", po::value< std::string >(), "check: hardware string with current machine")
+	("m7lic", po::value< std::string >(), "check: license string with current machine")
+	*/
 	
 	return (0);
 
