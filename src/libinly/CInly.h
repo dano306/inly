@@ -38,14 +38,14 @@ public:
 	/*
 		显示许可字符串明文
 	*/
-	std_string
+	const std_string
 	DumpLicenseDetail(const std_string &r_strLicense);
 
 	/*
 		显示硬件字符串明文
 	*/
-	std_string
-	DumpHardwareDetail(const std_string &r_strLicense);
+	const std_string
+	DumpHardwareDetail(const std_string &r_strHardware);
 
 	void
 	test(const char *pPlain);

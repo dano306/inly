@@ -34,5 +34,11 @@ int main()
 		std::cout << "CheckLicenseString: " << bRet << std::endl;
 	}
 
+	{
+		std::string	strLicense = "4407D8BEAC9DCD4AE0954AC93E258F4CE198263A0F5666093B6BB5A52199157D327E";
+		std::string	strHardwarePlain = Inly.DumpLicenseDetail(strLicense);
+		std::cout << "strHardwarePlain: " << strHardwarePlain << std::endl;
+	}
+
 	return (0);
 }

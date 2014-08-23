@@ -158,6 +158,19 @@ CInly::CheckLicenseString(const std_string &r_strLicense)
 	return (strLicense == r_strLicense);
 }
 
+const CInly::std_string
+CInly::DumpLicenseDetail(const std_string &r_strLicense)
+{
+	CAesWrapper		aes;
+	std::string		strHardwareCipher;
+	std::string		strHardwarePlain;
+	
+	aes.decrypt(r_strLicense, strHardwareCipher);
+	aes.decrypt(strHardwareCipher, strHardwarePlain);
+	
+	return (strHardwarePlain);
+}
+
 void
 CInly::test(const char *pPlain)
 {
