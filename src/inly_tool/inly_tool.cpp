@@ -236,7 +236,10 @@ int main(int argc, char **argv)
 	} else if (vm.count("m7lic")) {
 		int iRet = m7lic(vm["m7lic"].as< std::string >());
 		std::exit(iRet);
-	} 
+	} else {
+		desc.print(std::cout);
+	    std::exit(EXIT_SUCCESS);
+	}
 	
 	return (0);
 }
