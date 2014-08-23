@@ -132,6 +132,45 @@ int lic2raw(const std_string &r_strLicense)
 	return (EXIT_SUCCESS);
 }
 
+int m7hw(const std_string &r_strHardware)
+{
+	CInly	Inly;
+
+	std::string	strHardware = Inly.GetHardwareString();
+	if (strHardware.empty()) {
+		return (EXIT_FAILURE);
+	}
+	
+	if(strHardware == r_strHardware) {
+		std::cout << "the hardware string is correct" << std::endl;
+		return (EXIT_SUCCESS);
+	} else {
+		return (EXIT_SUCCESS);
+	}
+
+}
+
+int m7lic(const std_string &r_strLicense)
+{
+	CInly	Inly;
+
+	std::string	strLicense = Inly.GetLicenseString();
+	if (strLicense.empty()) {
+		return (EXIT_FAILURE);
+	}
+	
+	if(strLicense == r_strLicense) {
+		std::cout << "the license string is correct" << std::endl;
+		return (EXIT_SUCCESS);
+	} else {
+		return (EXIT_SUCCESS);
+	}
+}
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
@@ -154,8 +193,8 @@ int main(int argc, char **argv)
 
 		//检验系列的选项开关
 		//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
-    	("m7hw", po::value< std::string >(), "check: hardware string with current machine")
-    	("m7lic", po::value< std::string >(), "check: license string with current machine")
+    	("m7hw", po::value< std::string >(), "input: hardware string; check: hardware string with current machine")
+    	("m7lic", po::value< std::string >(), "input: license string; check: license string with current machine")
 	;
 	
 	po::variables_map vm;
@@ -195,21 +234,15 @@ int main(int argc, char **argv)
 	} else if (vm.count("lic2raw")) {
 		int iRet = lic2raw(vm["lic2raw"].as< std::string >());
 		std::exit(iRet);
+	} else if (vm.count("m7hw")) {
+		int iRet = m7hw(vm["m7hw"].as< std::string >());
+		std::exit(iRet);
+	} else if (vm.count("m7lic")) {
+		int iRet = m7lic(vm["m7lic"].as< std::string >());
+		std::exit(iRet);
 	} 
 	
-	
-
-	/*	
-
-
-	//检验系列的选项开关
-	//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
-	("m7hw", po::value< std::string >(), "check: hardware string with current machine")
-	("m7lic", po::value< std::string >(), "check: license string with current machine")
-	*/
-	
 	return (0);
-
 }
 
 /*
