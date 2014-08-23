@@ -12,6 +12,6 @@ libinly_la_LDFLAGS = `pkg-config cryptopp  --libs` -lboost_filesystem
 
 # 不合适在这里指定，还是得由./configure时进行配置
 #includedir=${prefix}/include/inly/
-nobase_include_HEADERS = CInly.h
+nobase_include_HEADERS = inly.h inly_core.h CInly.h
 
 noinst_HEADERS = CAesWrapper.h

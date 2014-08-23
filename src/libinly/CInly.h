@@ -1,12 +1,13 @@
 #ifndef	__FILE_CINLY_H__
 #define	__FILE_CINLY_H__
 
-#include <string>
+#include <inly_core.h>
+
+NAMESPACE_BEGIN__INLY
 
 class	CInly
 {
 public:
-	typedef	std::string	std_string;
 
 	explicit CInly();
 	virtual ~CInly();
@@ -51,6 +52,8 @@ public:
 	test(const char *pPlain);
 
 };//class CInly
+
+NAMESPACE_END__INLY
 
 #endif	//__FILE_CINLY_H__
 

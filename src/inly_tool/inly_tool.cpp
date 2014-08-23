@@ -1,4 +1,4 @@
-#include "CInly.h"
+#include "inly.h"
 #include <iostream>
 #include <string>
 
@@ -18,7 +18,7 @@ int main()
 	{
 		std::string	strLicense;
 		strLicense = Inly.GetLicenseString();
-		std::cout << "strLicense: " << strLicense << std::endl;		
+		std::cout << "strLicense: " << strLicense << std::endl;
 	}
 
 	{

@@ -7,16 +7,7 @@ using namespace boost::filesystem;
 #include <vector>
 #include <set>
 
-
-#include <iostream>
-#include <stdio.h>
-#define	printf(format, args...)	printf("%s %s %d: " format "\n", __FILE__, __FUNCTION__, __LINE__, ##args)
-#define	printf__s(var)	printf("%s = %s", #var, var)
-#define	printf__size_t(var)	printf("%s = %lu", #var, var)
-#define	printf__str(var)	printf("%s = %s", #var, (var).c_str())
-#define inly_cout(var)	std::cout << __FILE__ << " " << __FUNCTION__ << " " << __LINE__ << ": " << #var << " = " << (var) << std::endl
-
-
+NAMESPACE_BEGIN__INLY
 
 CInly::CInly()
 {
@@ -26,7 +17,7 @@ CInly::~CInly()
 {
 }
 
-const CInly::std_string
+const std_string
 CInly::GetHardwareString(void)
 {
 	/*
@@ -119,7 +110,7 @@ CInly::GetHardwareString(void)
 	}
 }
 
-const CInly::std_string
+const std_string
 CInly::GetLicenseString(void)
 {
 	/*
@@ -138,7 +129,7 @@ CInly::GetLicenseString(void)
 	return (strLicense);
 }
 
-const CInly::std_string
+const std_string
 CInly::GetLicenseString(const std_string &r_strHardware)
 {
 	//硬件字符串再一次加密，即得到许可字符串
@@ -169,7 +160,7 @@ CInly::DumpLicenseDetail(const std_string &r_strLicense)
 	return (strHardwarePlain);
 }
 
-const CInly::std_string
+const std_string
 CInly::DumpHardwareDetail(const std_string &r_strHardware)
 {
 	CAesWrapper		aes;
@@ -213,3 +204,5 @@ CInly::test(const char *pPlain)
 	}
 	fprintf(stdout, "\n");
 }
+
+NAMESPACE_END__INLY
