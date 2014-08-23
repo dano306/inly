@@ -102,6 +102,16 @@ CInly::GetRawString(void)
 }
 
 const std_string
+CInly::D_GetRawString(const std_string &r_strHardware)
+{
+	std_string		strRaw;
+	
+	CAesWrapper		aes;
+	aes.decrypt(r_strHardware, strRaw);
+	return (strRaw);
+}
+
+const std_string
 CInly::GetHardwareString(const std_string &r_strRaw)
 {
 	/*

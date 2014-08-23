@@ -17,6 +17,12 @@ public:
 	GetRawString(void);
 
 	/*
+		返回表示硬件编码的原始字符串，从指定的硬件字符串进行解码
+	*/
+	const std_string
+	D_GetRawString(const std_string &r_strHardware);
+
+	/*
 		由硬件编码[从参数获取]生成的硬件字符串
 	*/
 	const std_string

@@ -89,6 +89,18 @@ int hw2lic(const std_string &r_strHardware)
 	return (EXIT_SUCCESS);
 }
 
+int hw2raw(const std_string &r_strHardware)
+{
+	CInly	Inly;
+
+	std::string	strRaw = Inly.D_GetRawString(r_strHardware);
+	if (strRaw.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strRaw << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
 
 int main(int argc, char **argv)
 {
@@ -144,13 +156,16 @@ int main(int argc, char **argv)
 	} else if (vm.count("hw2lic")) {
 		int iRet = hw2lic(vm["hw2lic"].as< std::string >());
 		std::exit(iRet);
+	} else if (vm.count("hw2raw")) {
+		int iRet = hw2raw(vm["hw2raw"].as< std::string >());
+		std::exit(iRet);
 	} 
 	
 	
 
 	/*	
     ("", po::value< std::string >(), "input: hardware string; output: license string")
-	("hw2raw", po::value< std::string >(), "input: hardware string; output: raw machine string")
+	("", po::value< std::string >(), "input: hardware string; output: raw machine string")
 	("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
 	("lic2hw", po::value< std::string >(), "input: license string; output: raw hardware string")
 
