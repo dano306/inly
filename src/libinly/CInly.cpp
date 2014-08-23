@@ -20,21 +20,15 @@ CInly::~CInly()
 }
 
 const std_string
-CInly::GetHardwareString(void)
+CInly::GetRawString(void)
 {
-	/*
-		当前版本：仅关联所有网卡mac地址
-		明文: 枚举/sys/class/net/目录，除lo之外，eth'X'/em'X'目录下的address文件内容，然后以'|'分隔，各mac地址按从小到大排序
-		`cat /sys/class/net/eth0/address`|`cat /sys/class/net/eth1/address`|...|`cat /sys/class/net/ethN/address`
-	*/
-
 	/*
 		@return
 			失败返回""，否则返回硬件字符串[当前的设计下，不可能是""]
 	*/
-
+	
 	path			p("/sys/class/net");
-	std_string		strHardware;
+	std_string		strRaw;
 	try
 	{
 		if (!exists(p))
@@ -82,34 +76,45 @@ CInly::GetHardwareString(void)
 		
 		//setMac.insert("01:23:45:67:89:ab");	//仅仅用于测试分隔符
 		for(set_str::const_iterator it = setMac.begin(); it != setMac.end(); ++it){
-			if (!strHardware.empty()) {
+			if (!strRaw.empty()) {
 				//加入分隔线
-				strHardware += "|";
+				strRaw += "|";
 			}
-			strHardware += *it;
+			strRaw += *it;
 			inly_cout(*it);
 		}
-		inly_cout(strHardware);
-		
-		//加密
-		std_string		strCipher;
-		{
-			CAesWrapper		aes;
-			aes.encrypt(strHardware, strCipher);
-			
-			//仅测试
-			//strHardware.clear();
-			//aes.decrypt(strCipher, strHardware);
-			//return (strHardware);
-		}
-		
-		return (strCipher);
+		inly_cout(strRaw);
+		return (strRaw);
 	}
 	catch (const filesystem_error& ex)
 	{
 		//ex.what()
 		return ("");
 	}
+		
+}
+
+const std_string
+CInly::GetHardwareString(void)
+{
+	/*
+		当前版本：仅关联所有网卡mac地址
+		明文: 枚举/sys/class/net/目录，除lo之外，eth'X'/em'X'目录下的address文件内容，然后以'|'分隔，各mac地址按从小到大排序
+		`cat /sys/class/net/eth0/address`|`cat /sys/class/net/eth1/address`|...|`cat /sys/class/net/ethN/address`
+	*/
+
+	/*
+		@return
+			失败返回""，否则返回硬件字符串[当前的设计下，不可能是""]
+	*/
+
+	std_string		strRaw = GetRawString();
+	std_string		strHardware;
+	
+	CAesWrapper		aes;
+	aes.encrypt(strRaw, strHardware);
+
+	return (strHardware);
 }
 
 const std_string

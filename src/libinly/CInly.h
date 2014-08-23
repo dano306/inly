@@ -11,6 +11,12 @@ public:
 	virtual ~CInly();
 
 	/*
+		返回表示硬件编码的原始字符串
+	*/
+	const std_string
+	GetRawString(void);
+
+	/*
 		由硬件编码生成的硬件字符串
 	*/
 	const std_string

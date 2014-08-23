@@ -1,9 +1,81 @@
 #include <inly.h>
 
+#include <string>
+#include <boost/program_options.hpp>
+#include <cstdlib>
+
 NAMESPACE_USING__INLY
 
-int main()
+int m2raw()
 {
+	CInly	Inly;
+
+	std::string	strRaw = Inly.GetRawString();
+	if (strRaw.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strRaw << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
+
+int main(int argc, char **argv)
+{
+	namespace po = boost::program_options;
+		
+	po::options_description desc("inly_tool args description");
+	desc.add_options()
+    	("help,h", "show this message and exit")
+    	("version,v", "show version and exit")
+    	
+    	//字符串系列的选项开关
+    	("m2raw", "input: none/null; output: raw machine string")
+    	("m2hw", "input: none/null; output: hardware string")
+    	("m2lic", "input: none/null; output: license string")
+    	("raw2hw", po::value< std::string >(), "input: raw machine string; output: hardware string")
+    	("raw2lic", po::value< std::string >(), "input: raw machine string; output: license string")
+    	("hw2lic", po::value< std::string >(), "input: hardware string; output: license string")
+    	("hw2raw", po::value< std::string >(), "input: hardware string; output: raw machine string")
+    	("lic2raw", po::value< std::string >(), "input: license string; output: raw machine string")
+    	("lic2hw", po::value< std::string >(), "input: license string; output: raw hardware string")
+
+		//检验系列的选项开关
+		//不再开放其它的(x7y)，一方面它不是直接所需的接口，另一方面，通过x2y系列的接口可以等价地实现
+    	("m7hw", po::value< std::string >(), "check: hardware string with current machine")
+    	("m7lic", po::value< std::string >(), "check: license string with current machine")
+	;
+	
+	po::variables_map vm;
+	po::store(po::parse_command_line(argc, argv, desc), vm);
+	po::notify(vm);
+
+	if (vm.count("help")) {
+		desc.print(std::cout);
+	    std::exit(EXIT_SUCCESS);
+	} else if (vm.count("version")) {
+		std::cout << "inly_tool 1.0.0" << std::endl;
+		std::exit(EXIT_SUCCESS);
+	} else if (vm.count("m2raw")) {
+		int iRet = m2raw();
+		std::exit(iRet);
+	} 
+	
+	
+//	if (vm.count("compression")) {
+//	    cout << "Compression level was set to " 
+//	 << vm["compression"].as() << ".\n";
+//	} else {
+//	    cout << "Compression level was not set.\n";
+//	}
+
+
+	return (0);
+
+}
+
+/*
+在main函数还未增加选项开关之前的相关测试代码片断
+
 	CInly	Inly;
 	
 	//Inly.test("dano306");
@@ -46,5 +118,4 @@ int main()
 		inly_cout(strHardwarePlain);
 	}
 
-	return (0);
-}
+*/

@@ -8,7 +8,7 @@
 #define	INLY_DEBUG
 
 #include <iostream>
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 
 #ifdef	INLY_DEBUG		//通过条件编译，快速去掉打印调试相关的宏
