@@ -58,6 +58,24 @@ int raw2hw(const std_string &r_strRaw)
 	return (EXIT_SUCCESS);	
 }
 
+int raw2lic(const std_string &r_strRaw)
+{
+	CInly	Inly;
+
+	std::string	strHardware = Inly.GetHardwareString(r_strRaw);
+	if (strHardware.empty()) {
+		return (EXIT_FAILURE);
+	}
+
+	std::string	strLicense = Inly.GetLicenseString(strHardware);
+	if (strLicense.empty()) {
+		return (EXIT_FAILURE);
+	}
+	std::cout << strLicense << std::endl;
+	
+	return (EXIT_SUCCESS);
+}
+
 int main(int argc, char **argv)
 {
 	namespace po = boost::program_options;
@@ -106,17 +124,11 @@ int main(int argc, char **argv)
 	} else if (vm.count("raw2hw")) {
 		int iRet = raw2hw(vm["raw2hw"].as< std::string >());
 		std::exit(iRet);
+	} else if (vm.count("raw2lic")) {
+		int iRet = raw2lic(vm["raw2lic"].as< std::string >());
+		std::exit(iRet);
 	} 
 	
-	
-//	if (vm.count("compression")) {
-//	    cout << "Compression level was set to " 
-//	 << vm["compression"].as() << ".\n";
-//	} else {
-//	    cout << "Compression level was not set.\n";
-//	}
-
-
 	return (0);
 
 }
